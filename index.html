@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Xbuild</title>
+        <link rel="icon" type="image/png" href="favicon.ico"/>
+        <meta name="description" content="3D Application">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+        <script type="text/javascript" src="js/webxr.js"></script>
+        <script type="text/javascript" src="js/joystick.js"></script>
+        <script type="text/javascript" src="js/camera-cube-env.js"></script>
+        <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+
+        
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body onload="init();">
+        <a-scene   shadow="type: basic; autoUpdate: false;" renderer="antialias: true; colorManagement: true; physicallyCorrectLights: true;" inspector-plugin-recast; >
+            <!-- Assets -->
+            <a-assets>
+                 <a-asset-item id="my-nav-mesh" src="./assets/navimesh.gltf"></a-asset-item> -->
+				<a-asset-item id="APlane" src="./assets/APlane.gltf"></a-asset-item>
+				<a-asset-item id="Ceiling" src="./assets/Ceiling.gltf"></a-asset-item>
+				<a-asset-item id="darkwall" src="./assets/darkwall.gltf"></a-asset-item>
+				<a-asset-item id="ExWall" src="./assets/ExWall.gltf"></a-asset-item>
+				<a-asset-item id="Innerwall" src="./assets/Innerwall.gltf"></a-asset-item>
+				<a-asset-item id="skyplane" src="./assets/skyplane.gltf"></a-asset-item>
+				<a-asset-item id="Slab" src="./assets/Slab.gltf"></a-asset-item>
+				<a-asset-item id="Window" src="./assets/Window.gltf"></a-asset-item>
+				<a-asset-item id="window2" src="./assets/window2.gltf"></a-asset-item>
+                <img id="sky"                 src="./resources/sky.jpg">
+                <img id="icon-play"           src="./resources/play.png">
+                <img id="icon-pause"          src="./resources/pause.png">
+                <img id="icon-play-skip-back" src="./resources/play-skip-back.png">
+                <img id="icon-mute"           src="./resources/mute.png">
+                <img id="icon-volume-low"     src="./resources/volume-low.png">
+                <img id="icon-volume-high"    src="./resources/volume-high.png">
+            </a-assets>
+
+            <!-- Entities -->
+            <a-entity id="#my-nav-mesh"  gltf-model="#my-nav-mesh" nav-mesh ></a-entity>
+
+			<a-entity id="#APlane"  gltf-model="#APlane" scale="1 1 1" position="-5.797506809234619 1.3389699459075928 -2.1014091968536377" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#Ceiling"  gltf-model="#Ceiling" scale="1 1 1" position="-3.000000238418579 2.651383399963379 -2.1982882022857666" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#darkwall"  gltf-model="#darkwall" scale="1 1 1" position="-5.80000114440918 1.350000023841858 -5.899998664855957" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#ExWall"  gltf-model="#ExWall" scale="1 1 1" position="-3.5887584686279297 1.2655556201934814 -2.2666659355163574" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#Innerwall"  gltf-model="#Innerwall" scale="1 1 1" position="-3.0000014305114746 1.350000023841858 -4.086686611175537" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#skyplane"  gltf-model="#skyplane" scale="1 1 1" position="-3.7476789951324463 0.8527289628982544 2.2485170364379883" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#Slab"  gltf-model="#Slab" scale="1 1 1" position="-3.000000476837158 -0.05000000074505806 -3.9999992847442627" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#Window"  gltf-model="#Window" scale="1 1 1" position="-3.599705457687378 0.6185780167579651 -0.11927168071269989" visible="true" shadow="cast: false" ></a-entity>
+			<a-entity id="#window2"  gltf-model="#window2" scale="1 1 1" position="-3.599705457687378 0.6185780167579651 -0.11927168071269989" visible="true" shadow="cast: false" ></a-entity>
+
+            <!-- Camera -->
+            <a-entity id="player" 
+                position="-1 -0.2 -1" 
+                movement-controls="speed: 0.10000000149011612; constrainToNavMesh: true">
+                <a-entity id="camera" 
+                    camera="near: 0.001" 
+                    position="0 1.7000000476837158 0" 
+                    look-controls="pointerLockEnabled: true"
+
+                    >
+                        <a-entity id="cursor" cursor="fuse: false;" animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 50; from: 	0.1 0.1 0.1; to: 1 1 1"
+                            position="0 0 -0.1"
+                            geometry="primitive: circle; radius: 0.001;"
+                            material="color: #CCC; shader: flat;"
+                            >
+                        </a-entity>
+                </a-entity>
+                    <a-entity id="leftHand" oculus-touch-controls="hand: left" vive-controls="hand: left"></a-entity>
+					<a-entity id="rightHand" laser-controls oculus-touch-controls="hand: right" vive-controls="hand: right" ></a-entity>
+            </a-entity>
+
+            <!-- Lights -->
+            <a-entity light="intensity: 1.0; castShadow: false; shadowBias: -0.001; shadowCameraFar: 501.02; shadowCameraBottom: 12; shadowCameraFov: 101.79; shadowCameraNear: 0; shadowCameraTop: -5; shadowCameraRight: 10; shadowCameraLeft: -10; shadowRadius: 2" position="1.36586 7.17965 1"></a-entity>
+            <a-entity light="type: ambient; intensity: 1.0"></a-entity>
+
+            <!-- Sky -->
+            <a-sky color="#ECECEC"></a-sky>
+        </a-scene>
+    </body>
+</html>
+
